@@ -35,7 +35,7 @@ app.controller('ManageSlideListCtrl', ['$scope', '$ionicLoading', '$ionicViewSer
             IsPublish: slide.ispublish == true ? "1" : "0"
         };
 
-        var url = UrlHelper.prepareApiUrl("apiImages/" + $rootScope.theUrl + '/' + slide.image_id);
+        var url = UrlHelper.prepareApiUrl("webapiImages/" + $rootScope.theUrl + '/' + slide.image_id);
 
         // angular no shortcut method for PATCH
         $http({ method: 'PATCH', url: url, data: update_obj }).
