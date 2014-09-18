@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="tw.com.icdt.apple"
+        version="0.0.1"
+        xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0"
+        xmlns:gap="http://phonegap.com/ns/1.0">
+  <name>Apple</name>
+  <description>
+        Apple Project
+  </description>
+  <author email="iscarryon@gmail.com" href="http://na.com">
+      icdt dev team
+  </author>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
+</widget>

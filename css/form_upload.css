@@ -1,0 +1,247 @@
+﻿
+.camera_form {
+    width: 100%;
+    height:100%;
+}
+
+.camera_input_cover {
+    background-color: #ADD8E6;
+    height: 100%;
+    position: relative;
+    padding: 8px;
+    width: 48%;
+    text-align: center;
+
+    float: left;
+}
+
+.camera_input_cover_image {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+
+    background-image: url('../../www/img/camera-icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+}
+
+.upload_cover_image {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+
+    background-image: url('../../www/img/upload-icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.info_cover_image {
+    width: 70px;
+    height: 70px;
+    margin:  -5px auto;
+
+    background-image: url('../../www/img/info-icon.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.camera_input_over_image {
+    opacity: 0.0;
+    margin-left: -200px;
+}
+
+.camera_input {
+    opacity: 0.0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.camera_submit_cover {
+    background-color: #ADD8E6;
+    height: 100%;
+    position: relative;
+    padding: 8px;
+    width: 48%;
+    text-align: center;
+
+    float: right;
+}
+
+.camera_submit {
+    opacity: 0.0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.photoStyle {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto;
+    /*background-color: white;*/
+    padding: 15px;
+    box-shadow: 10px 10px 10px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+}
+
+
+/*.modal-backdrop * {
+    background-color: rgba(0, 0, 0, 0.0);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    -o-filter: blur(5px);
+    filter: blur(5px);
+}*/
+
+/*.modal_blur {
+    width:100%;
+    height:100%;
+    position: absolute;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    -o-filter: blur(5px);
+    filter: blur(5px);
+
+    background-image: url('http://eswalls.com/wp-content/uploads/2014/07/wedding-couple-sunset-romance-hd-wallpapers.jpg');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center center;
+}*/
+
+
+/*from https://app.couple.me/login*/
+
+#login-container{
+    height:395px;
+    margin-top: 20%;
+}
+
+.onboard-container{
+    display: none;
+    position: absolute;
+    background-color: white;
+    width:300px;
+    margin-right: -150px;
+    top:50%;
+    right:50%;
+
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+
+    text-align: center;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.login-text-box {
+    display: inline-block !important;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    width: 260px;
+    height: 40px;
+
+    border: none;
+    border-color: transparent;
+    outline: none;
+    outline-width:0px;
+    background-color: #dae2e6;
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    padding-left: 10px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.login-textarea {
+    display: inline-block !important;
+    resize: none;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    width: 260px;
+    height: 200px;
+
+    border: none;
+    border-color: transparent;
+    outline: none;
+    outline-width:0px;
+    background-color: #dae2e6;
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    padding-top: 10px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+#text-userid{
+    margin-top:10px;
+}
+
+
+#text-password{
+    margin-top:10px;
+}
+
+
+#button-login{
+    color: white;
+    width: 270px;
+    height: 40px;
+    border: none;
+    margin-top: 10px;
+    background-color: #5cbad5;
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+#button-cancel{
+    color: white;
+    width: 270px;
+    height: 40px;
+    border: none;
+    margin-top: 10px;
+    background-color: rgb(241, 112, 112);
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+input[type=button]{
+    -webkit-appearance: none;
+}
+
+input[type=submit]{
+    -webkit-appearance: none;
+}

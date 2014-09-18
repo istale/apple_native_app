@@ -1,0 +1,355 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=0, width=device-width, height=device-height" />
+    <title></title>
+
+    <!-- css -->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet" />
+    <link href="css/form_upload.css" rel="stylesheet" />
+    <link href="css/manage.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
+    <!--js libs-->
+    <!--jquery-->
+    <script src="lib/jquery/jquery-2.1.1.js"></script>
+    <!--lodash-->
+    <script src="lib/lodash/lodash.min.js"></script>
+    <!-- ionic -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- 3rd party -->
+    <script src="lib/signalr/jquery.signalR-2.1.1.min.js"></script>
+    <script src="lib/ionic/js/angular/angular-resource.js"></script>
+    <script src="lib/angularlib/elastic.js"></script>
+    <script src="lib/jic/JIC.js"></script>
+    
+    <!-- app js -->
+    <script src="js/app.js"></script>
+    <script src="js/services/user_service.js"></script>
+    <script src="js/services/signalr_service.js"></script>
+    <script src="js/services/pushnotify_service.js"></script>
+    <script src="js/utilities/utility.js"></script>
+    <script src="js/utilities/lodash.js"></script>
+    <script src="js/utilities/config.js"></script>
+    <script src="js/utilities/url_helper.js"></script>
+    <script src="js/controllers/general/sidemenu.js"></script>
+    <script src="js/controllers/general/eventlist.js"></script>
+    <script src="js/controllers/general/formupload.js"></script>
+    <script src="js/controllers/manage/sidemenu.js"></script>
+    <script src="js/controllers/manage/slidelist.js"></script>
+    <script src="js/controllers/manage/slidedetail.js"></script>
+    
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+</head>
+<body ng-app="app">
+
+    <ion-nav-view id="main"></ion-nav-view>
+
+    <div id="theUrl" style="display: none;"></div>
+
+    <div id="my_loading" class="myloading-container">
+        <div class="myloading-loading">
+            Loading...
+        </div>
+    </div>
+
+    <script id="general_sidemenu.html" type="text/ng-template">
+        <ion-side-menus>
+            <!-- 中間的內容 Center content -->
+            <ion-pane ion-side-menu-content>
+
+                <ion-nav-bar class="nav-title-slide-ios7 tranparent_bar">
+                    <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> Back</ion-nav-back-button>
+                </ion-nav-bar>
+
+                <!--子畫面放置的位置-->
+                <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+
+            </ion-pane>
+
+            <!-- Left menu -->
+            <ion-side-menu side="left">
+                <header class="bar bar-header bar-dark">
+                    <h1 class="title">Login</h1>
+                </header>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <!--<ion-item nav-clear menu-close href="#/manage/slide_list">
+                            Slide List
+                        </ion-item>-->
+                        <form ng-submit="vm.login()">
+                            <ion-item>
+                                <input type="text" ng-model="vm.username" placeholder="username" />
+                            </ion-item>
+                            <ion-item>
+                                <input type="password" ng-model="vm.password" placeholder="password" />
+                            </ion-item>
+                            <ion-item>
+                                <label class="toggle toggle-dark">
+                                    <input type="checkbox" ng-model="vm.persist">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                            </ion-item>
+                            <ion-item>
+                                <input type="submit" value="Login" class="button button-balanced" />
+                            </ion-item>
+                        </form>
+                    </ion-list>
+                </ion-content>
+            </ion-side-menu>
+
+
+        </ion-side-menus>
+
+    </script>
+
+    <script id="general_event_list.html" type="text/ng-template">
+        <ion-view title="今日婚禮列表">
+            <ion-nav-buttons side="left">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            </ion-nav-buttons>
+            <ion-content class="has-header">
+                <div class="list">
+
+                    <a ng-repeat="slide in slides"
+                       href="#"
+                       class="item item-thumbnail-left">
+
+                        <img ng-src="{{ slide.image }}">
+                        <h2>{{ slide.text }}</h2>
+                    </a>
+
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+
+    <script id="general_form_upload.html" type="text/ng-template">
+        <ion-view title="FormUpload" class="page_background_image" hide-nav-bar="true">
+            <ion-nav-buttons side="left">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            </ion-nav-buttons>
+            <ion-content has-header="true" scroll="false">
+
+                <div class="title_text">
+                    <h1 style="font-family: 'Pacifico', cursive; color: white;">The Wedding</h1>
+                </div>
+
+
+                <div class="welcome_text">
+                    <h3>
+                        Welcome to Box & Mary's Wedding
+                    </h3>
+                    <h3>
+                        You can take photos with this app and share with us
+                    </h3>
+                    <h3>
+                        You can also leave a message along with the photo
+                    </h3>
+                    <h3>
+                        Thank & be happy forever...
+                    </h3>
+                </div>
+
+                <div style="position:absolute; top: 40%; left: 0px; right: 0px; bottom: auto;" ng-show="uploading">
+                    <div class="bar bar-header bar-light"></div>
+                    <div class="bar bar-header bar-calm" role="progressbar" ng-style="{ 'width': vm.progress + '%' }" style="padding:0;"></div>
+                    <div class="bar bar-header bar-light" style="background-color:rgba(255, 255, 255,0);">
+                        <h2 style="margin: 0 auto; color: white;">{{vm.progress}}%</h2>
+                    </div>
+                </div>
+
+                <!--停止content被滑動-->
+                <form method="post" enctype="multipart/form-data" class="camera_form">
+
+                    <div style="position:absolute; top: 70px; bottom: 75px; width: 100%; margin: auto; padding: 10px; text-align:center;">
+                        <img src="" id="photoHolder" class="photoStyle" />
+                        <img id="photoCompress" style="display:none;" />
+                    </div>
+
+                    <div class="tabs tranparent_tabs">
+                        <div class="tabs_blur"></div>
+                        <div class="tab-item">
+                            <div class="camera_input_cover_image">
+                                <input type="file" accept="image/*" class="camera_input_over_image" photoread />
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="upload_cover_image" ng-click="openModal()">
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="info_cover_image">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </ion-content>
+        </ion-view>
+    </script>
+
+    <script id="manage_sidemenu.html" type="text/ng-template">
+        <ion-side-menus>
+
+            <!-- 中間的內容 Center content -->
+            <ion-pane ion-side-menu-content>
+
+                <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+                    <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> Back</ion-nav-back-button>
+                </ion-nav-bar>
+
+                <!--子畫面放置的位置-->
+                <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+
+            </ion-pane>
+
+            <!-- Left menu -->
+            <ion-side-menu side="left">
+                <header class="bar bar-header bar-energized">
+                    <h1 class="title">Menu</h1>
+                </header>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <ion-item nav-clear menu-close href="#/app/angular_camera">
+                            Camera
+                        </ion-item>
+                        <ion-item nav-clear menu-close href="#/manage/slide_list">
+                            Slide list
+                        </ion-item>
+                        <ion-item nav-clear menu-close ng-click="logout()">
+                            Log out
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-side-menu>
+        </ion-side-menus>
+    </script>
+
+    <script id="manage_event_list.html" type="text/ng-template">
+        <ion-view title="婚禮列表">
+            <ion-nav-buttons side="left">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            </ion-nav-buttons>
+            <ion-content class="has-header">
+                <div class="list">
+
+                    <a ng-repeat="event in events"
+                       href="#"
+                       class="item">
+                        <h2>{{ event.theurl }}</h2>
+                    </a>
+
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+
+    <script id="manage_slide_list.html" type="text/ng-template">
+        <ion-view title="Thumbnail">
+            <ion-nav-buttons side="left">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            </ion-nav-buttons>
+            <ion-content class="has-header">
+                <div class="list">
+
+                    <div ng-repeat="slide in slides | orderBy: 'slide_id':true"
+                         class="item item-thumbnail-left">
+
+                        <img ng-src="{{ slide.image }}" class="thumbnail_image">
+
+                        <div class="ellipsis" style="float:left;">
+                            <p>
+                                {{ slide.name }}
+                                <br />
+                                {{ slide.message }}
+                            </p>
+                        </div>
+                        <div style="float: right;">
+                            <div>
+                                <a href="#/manage/slide_list/{{slide.slide_id}}" class="button button-dark" style="border-radius: 10px;">
+                                    <i class="icon ion-chatbubble-working"></i>
+                                </a>
+                            </div>
+                            <div style="margin-top: 25px;">
+                                <label class="toggle toggle-dark">
+                                    <input type="checkbox" ng-model="slide.ispublish" ng-change="slideIsPublishChange({{slide.slide_id}})">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+
+    <script id="manage_slide_detail.html" type="text/ng-template">
+        <ion-view title="Slide Detail">
+            <ion-content has-header="true" scroll="false">
+                <div class="camera_form">
+
+                    <div style="position:absolute; top: 0px; bottom:85px; width: 100%; margin: auto; padding: 10px; text-align:center;">
+                        <img ng-src="{{single_slide.image}}" alt="Take a photo" id="photoHolder" style="max-width: 100%; max-height: 100%; display: block; margin: auto; border-radius: 20px;" />
+                    </div>
+
+                    <div style="position: absolute; bottom:0px; right:0px; left:0px; padding:5px;">
+                        <div>
+                            <!--<div style="overflow:auto; bottom:0px; line-height: 18px; font-size:16px; border: 1px solid; padding:5px;">
+                                {{single_slide.text}}
+                            </div>-->
+
+                            <textarea ng-model="single_slide.message" class="msd-elastic" name="myname" wrap="hard" style="overflow:auto; bottom:0px; line-height: 18px; font-size:16px; border: 1px solid; padding:5px;">
+                                {{single_slide.message}}
+                            </textarea>
+                        </div>
+                        <!--<div class="button-bar" style="margin-top:3px;">
+                            <div style="width: 100%;">
+                                <button id="btn_publish" class="button button-balanced">
+                                    發布
+                                </button>
+                                <div id="btn_delete" class="button button-assertive">
+                                    刪除
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </ion-content>
+        </ion-view>
+    </script>
+
+    <script id="upload.html" type="text/ng-template">
+        <ion-modal-view style="background-color:rgba(0,0,0,0);">
+            <ion-content class="padding">
+                <div id="login-container" class="onboard-container" style="display: block;">
+                    
+                    <form id="login-form" target="" action="">
+                        <input ng-model="vm.name" id="text-userid" type="text" value="" placeholder="Name" class="login-text-box">
+                        <textarea ng-model="vm.message" id="text-password" placeholder="Leave your greetings..." class="login-textarea"></textarea>
+                        <button ng-click="vm.imgCompress()">Compress</button>
+
+                        <input id="button-login" type="submit" value="Submit" ng-click="vm.formSend()" />
+                        <p style="font-size: 12px;">(you can also upload photo without message)</p>
+                        <button id="button-cancel" ng-click="closeModal()">Cancel</button>
+                    </form>
+
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+
+
+</body>
+</html>
+
+
+
