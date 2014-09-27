@@ -14,6 +14,8 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function (
         proxy = connection.createHubProxy('slidesHub');
 
         // 監聽server傳過來的事件
+        proxy.on('hello', function (theString) { });
+
         proxy.on('newSlideToManager', function (id, filePath, name, leaveMessage, isPublish) {
             console.log("newSlideToManager:");
 
@@ -44,6 +46,7 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function (
 
     return {
         initialize: initialize,
+        proxy: proxy,
         invoke_server_method: invoke_server_method
     };
 }]);

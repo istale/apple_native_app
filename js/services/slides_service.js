@@ -1,16 +1,24 @@
 ﻿
 
-app.service('SlidesService', ['$http', '$q', 'UrlHelper', function ($http, $q, UrlHelper) {
+app.service('SlidesService', ['$http', '$q', 'UrlHelper', '$window', 'SignalrService', function ($http, $q, UrlHelper, $window, SignalrService) {
 
     // private property
     var slides = [];
 
     // setter / getter
     function getAll() {
-        return slides;
+
+        var savedData = JSON.parse($window.localStorage.getItem('auth_data'));
+        if (savedData)
+            return slides;
+        else
+            httpGetAll();
     }
 
     // persist data in client
+    $window.localStorage.setItem('auth_data', JSON.stringify(userData));
+    var savedData = JSON.parse($window.localStorage.getItem('auth_data'));
+    $window.localStorage.removeItem('auth_data');
 
     // restful manipulate
     function httpGetAll() {
@@ -19,6 +27,30 @@ app.service('SlidesService', ['$http', '$q', 'UrlHelper', function ($http, $q, U
 
 
     // realtime method ex. signalr, push notification
+    SignalrService.proxy.on('newSlideToManager', function (id, filePath, name, leaveMessage, isPublish) {
+        console.log("newSlideToManager:");
+
+        var data = {
+            id: id,
+            image: filePath,
+            name: name,
+            message: leaveMessage,
+            ispublish: isPublish == 0 ? false : true
+        };
+
+        console.log(data);
+
+        $rootScope.$broadcast("client_newSlideToManager", data);
+    });
+
+
+
+
+
+
+
+
+
 
     //var url = UrlHelper.prepareApiUrl("webapiImages/2014");
     //var dataInMemory = $http.get(url).then(function (resp) {

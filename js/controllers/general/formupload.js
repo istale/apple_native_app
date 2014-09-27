@@ -104,8 +104,8 @@ app.controller('GeneralFormUploadCtrl', ['$scope', '$ionicLoading', '$ionicScrol
             //    img_compressed.style.height = "300px";
             //}
             
-            source_image.style.display = "none";
-            img_compressed.style.display = "block";
+            //source_image.style.display = "none";
+            //img_compressed.style.display = "block";
         }
         console.log("process finished...");
 

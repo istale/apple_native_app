@@ -10,8 +10,8 @@ app.controller('ManageSideMenuCtrl', ['$scope', '$ionicViewService', 'resolved_e
     // 這樣的寫法可以讓 子state 繼承 events
     $scope.events = resolved_events;
 
-    // 這樣的寫法可以讓 子state 繼承 slides
-    $scope.slides = [];
+    // 這樣的寫法 不 可以讓 子state 繼承 slides
+    // $scope.slides = [];
 
     $scope.logout = function () {
         User.removeAuthentication();

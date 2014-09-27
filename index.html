@@ -25,7 +25,7 @@
     <script src="lib/ionic/js/angular/angular-resource.js"></script>
     <script src="lib/angularlib/elastic.js"></script>
     <script src="lib/jic/JIC.js"></script>
-    
+
     <!-- app js -->
     <script src="js/app.js"></script>
     <script src="js/services/user_service.js"></script>
@@ -41,11 +41,9 @@
     <script src="js/controllers/manage/sidemenu.js"></script>
     <script src="js/controllers/manage/slidelist.js"></script>
     <script src="js/controllers/manage/slidedetail.js"></script>
-    
+
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <!-- debug -->
-    <script src="http://192.168.1.227:8080/target/target-script-min.js#anonymous"></script>
+    <!--<script src="cordova.js"></script>-->
 
 </head>
 <body ng-app="app">
@@ -160,7 +158,7 @@
                     </h3>
                 </div>
 
-                <div style="position:absolute; top: 40%; left: 0px; right: 0px; bottom: auto;" ng-show="uploading">
+                <div style="position:absolute; top: 40%; left: 0px; right: 0px; bottom: auto;" ng-show="vm.uploading">
                     <div class="bar bar-header bar-light"></div>
                     <div class="bar bar-header bar-calm" role="progressbar" ng-style="{ 'width': vm.progress + '%' }" style="padding:0;"></div>
                     <div class="bar bar-header bar-light" style="background-color:rgba(255, 255, 255,0);">
@@ -260,9 +258,12 @@
             </ion-nav-buttons>
             <ion-content class="has-header">
                 <div class="list">
+                    <div class="item slide_thumbnail"
+                         collection-repeat="slide in slides | orderBy: 'slide_id':true"
+                         collection-item-width="'100%'"
+                         collection-item-height="getItemHeight(slide)"
+                         ng-style="{height: getItemHeight(slide)}">
 
-                    <div ng-repeat="slide in slides | orderBy: 'slide_id':true"
-                         class="item item-thumbnail-left">
 
                         <img ng-src="{{ slide.image }}" class="thumbnail_image">
 
@@ -333,7 +334,7 @@
         <ion-modal-view style="background-color:rgba(0,0,0,0);">
             <ion-content class="padding">
                 <div id="login-container" class="onboard-container" style="display: block;">
-                    
+
                     <form id="login-form" target="" action="">
                         <input ng-model="vm.name" id="text-userid" type="text" value="" placeholder="Name" class="login-text-box">
                         <textarea ng-model="vm.message" id="text-password" placeholder="Leave your greetings..." class="login-textarea"></textarea>

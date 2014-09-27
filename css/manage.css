@@ -4,7 +4,7 @@
     overflow: hidden;
     height: 100px;
     line-height: 20px;
-    width: 70%;
+    width: 35%;
     /*white-space: normal;*/
     /*margin: 20px;*/
     /*border: 5px solid #AAA; }*/
@@ -48,4 +48,21 @@
 
 .thumbnail_image {
     max-height:none !important; /*overrid ionic css*/
+}
+
+.list .slide_thumbnail{
+    left: 0;
+    right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.slide_thumbnail {
+    padding: 7px !important; /*overrid ionic css*/
+}
+
+.slide_thumbnail img {
+    width: 45%;
+    float: left;
+    margin-right: 10px;
 }
