@@ -258,14 +258,16 @@
             </ion-nav-buttons>
             <ion-content class="has-header">
                 <div class="list">
-                    <div class="item slide_thumbnail"
-                         collection-repeat="slide in slides | orderBy: 'slide_id':true"
+                    <!--<div class="item slide_thumbnail"
+                         collection-repeat="slide in slides | orderBy: 'slide_id':true" 
                          collection-item-width="'100%'"
                          collection-item-height="getItemHeight(slide)"
-                         ng-style="{height: getItemHeight(slide)}">
+                         ng-style="{height: getItemHeight(slide)}">-->
 
+                    <div ng-repeat="slide in slides | orderBy: 'slide_id':true"
+                         class="item slide_thumbnail">
 
-                        <!--<img ng-src="{{ slide.image }}" class="thumbnail_image">-->
+                        <img ng-src="{{ slide.image }}" class="thumbnail_image">
 
                         <div class="ellipsis" style="float:left;">
                             <p>

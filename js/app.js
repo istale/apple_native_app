@@ -168,7 +168,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                                       image: 'http://localhost:52214' + data[i].filePath,
                                       name: data[i].name,
                                       message: data[i].leaveMessage,
-                                      ispublish: data[i].isPublish == 0 ? false : true
+                                      ispublish: data[i].isPublish == 0 ? false : true,
+                                      checked: true
                                   });
 
                                   if (i == data.length - 1) {
