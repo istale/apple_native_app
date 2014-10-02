@@ -155,11 +155,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
 
                           var deferred = $q.defer();
                           var slides = [];
-                          var url = UrlHelper.prepareApiUrl("webapiImages/2014");
+                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2014");
 
                           $http.get(url)
                           .success(function (data, status, headers, config) {
-                              console.log(data);
+                              //console.log(data);
                               for (var i = 0; i < data.length; i++) {
 
                                   slides.push({

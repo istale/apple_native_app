@@ -7,6 +7,7 @@ app.controller('ManageSlideListCtrl', ['$scope', '$ionicLoading', '$ionicViewSer
 
     // 使用rootScope簡化邏輯流程
     $rootScope.slides = resolved_slides;
+    console.log($rootScope.slides);
 
     $scope.$parent.$on("client_newSlideToManager", function (e, data) {
        
@@ -57,9 +58,11 @@ app.controller('ManageSlideListCtrl', ['$scope', '$ionicLoading', '$ionicViewSer
 
     };
 
-    $scope.getItemHeight = function (slide) {
+    $scope.getItemHeight = function () {
         return 143;
     };
+
+   
 
     $ionicLoading.hide();
 
