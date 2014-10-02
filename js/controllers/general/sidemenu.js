@@ -1,6 +1,6 @@
 ﻿
 
-app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', function ($scope, $state, User) {
+app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoading', function ($scope, $state, User, $ionicLoading) {
 
     var username = '',
         password = '',
@@ -69,6 +69,7 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', function ($sc
         console.log($scope.vm.persist);
 
         disableLoginButton();
+        $ionicLoading.show();
         User.authenticate($scope.vm.username, $scope.vm.password, onSuccessfulLogin, onFailedLogin, $scope.vm.persist);
     };
 

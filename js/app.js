@@ -155,7 +155,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
 
                           var deferred = $q.defer();
                           var slides = [];
-                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2014");
+                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2016");
 
                           $http.get(url)
                           .success(function (data, status, headers, config) {
@@ -165,7 +165,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                                   slides.push({
                                       slide_id: i + 1,
                                       image_id: data[i].id,
-                                      image: 'http://localhost:52214' + data[i].filePath,
+                                      image: 'http://icdt-dev-apple.azurewebsites.net' + data[i].filePath,
                                       name: data[i].name,
                                       message: data[i].leaveMessage,
                                       ispublish: data[i].isPublish == 0 ? false : true,
