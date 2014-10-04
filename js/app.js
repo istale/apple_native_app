@@ -155,8 +155,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
 
                           var deferred = $q.defer();
                           var slides = [];
-                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2016");
-                          var thumbnail_rul = UrlHelper.prepareSiteUrl("");
+                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2017");
+                          var thumbnail_rul = UrlHelper.prepareDataUrl("");
 
                           $http.get(url)
                           .success(function (data, status, headers, config) {

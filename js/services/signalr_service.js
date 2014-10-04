@@ -7,7 +7,7 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', 'UrlHelper
         console.log('begin of signalRSvc intialize');
 
         // Getting the connection object
-        var url = config.signalrUrl;
+        var url = UrlHelper.prepareSignalrUrl();
         var connection = $.hubConnection(url, { useDefaultPath: false });
 
         // Creating proxy, 開頭字母要小寫
@@ -19,7 +19,7 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', 'UrlHelper
         proxy.on('newSlideToManager', function (id, filePath, name, leaveMessage, isPublish) {
             console.log("newSlideToManager:");
 
-            var thumbnail_rul = UrlHelper.prepareSiteUrl("");
+            var thumbnail_rul = UrlHelper.prepareDataUrl("");
             var data = {
                 id: id,
                 image: thumbnail_rul + filePath,

@@ -15,10 +15,7 @@ angular.module('utility.config', [])
         //apiUrl: 'http://localhost:49420/api',
         //signalrUrl: 'http://localhost:49420/signalr'
 
-        siteUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net',
-        tokenUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net',
-        apiUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net/api',
-        signalrUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net/signalr'
+        siteUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net'
 
         //siteUrl: '',
         //tokenUrl: 'http://icdt-dev-apple-webapi.azurewebsites.net',
