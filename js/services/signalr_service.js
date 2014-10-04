@@ -1,5 +1,5 @@
 ﻿
-app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function ($, $rootScope, $state, config) {
+app.service('SignalrService', ['$', '$rootScope', '$state', 'config', 'UrlHelper', function ($, $rootScope, $state, config, UrlHelper) {
     var proxy = null;
 
     var initialize = function () {
@@ -8,10 +8,10 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function (
 
         // Getting the connection object
         var url = config.signalrUrl;
-        var connection = $.hubConnection(url);
+        var connection = $.hubConnection(url, { useDefaultPath: false });
 
         // Creating proxy, 開頭字母要小寫
-        proxy = connection.createHubProxy('slidesHub');
+        proxy = connection.createHubProxy('apiSlidesHub');
 
         // 監聽server傳過來的事件
         proxy.on('hello', function (theString) { });
@@ -19,9 +19,10 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function (
         proxy.on('newSlideToManager', function (id, filePath, name, leaveMessage, isPublish) {
             console.log("newSlideToManager:");
 
+            var thumbnail_rul = UrlHelper.prepareSiteUrl("");
             var data = {
                 id: id,
-                image: filePath,
+                image: thumbnail_rul + filePath,
                 name: name,
                 message: leaveMessage,
                 ispublish: isPublish == 0 ? false : true
@@ -35,7 +36,7 @@ app.service('SignalrService', ['$', '$rootScope', '$state', 'config', function (
         // 註冊 signalR 連線
         connection.start()
                   .done(function () { console.log('Now connected, connection ID=' + connection.id); })
-                  .fail(function () { console.log('Could not connect'); });
+                  .fail(function (error) { console.log(error); });
 
     };
 
