@@ -155,8 +155,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
 
                           var deferred = $q.defer();
                           var slides = [];
-                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2017");
-                          var thumbnail_rul = UrlHelper.prepareDataUrl("");
+                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2018");
+                          var thumbnail_url = UrlHelper.prepareDataUrl("");
 
                           $http.get(url)
                           .success(function (data, status, headers, config) {
@@ -166,7 +166,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                                   slides.push({
                                       slide_id: i + 1,
                                       image_id: data[i].id,
-                                      image: thumbnail_rul + data[i].filePath,
+                                      image: thumbnail_url + data[i].filePath,
                                       name: data[i].name,
                                       message: data[i].leaveMessage,
                                       ispublish: data[i].isPublish == 0 ? false : true,
