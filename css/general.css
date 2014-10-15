@@ -7,7 +7,7 @@
 }
 
 .page_background_image {
-    background-image: url('../../phone_native_app/img/background.jpg');
+    background-image: url('../img/background.jpg');
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: center center;
