@@ -84,7 +84,7 @@ app.service('User', ['$http', '$window', 'UrlHelper', function ($http, $window, 
         } catch (e) {
           throw new NoAuthenticationException('Authentication not found');
         }
-        return true;
+        return false;
       }
     };
 
