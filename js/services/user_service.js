@@ -25,7 +25,7 @@ app.service('User', ['$http', '$window', 'UrlHelper', function ($http, $window, 
       isAuthenticated: false,
       username: '',
       bearerToken: '',
-      expirationDate: null,
+      expirationDate: null
     };
 
     var nextState = {

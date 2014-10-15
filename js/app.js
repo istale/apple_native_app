@@ -33,6 +33,9 @@ app.run(['$ionicPlatform', '$ionicLoading', '$rootScope', '$state', '$stateParam
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
 
+        $rootScope.events = [];
+        $rootScope.slides = [];
+
         // signalr initialize
         SignalrService.initialize();
 
@@ -92,42 +95,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
               user: 'User',
               authenticationRequired: ['user', function (user) {
                   user.isAuthenticated();
-              }],
-              resolved_events: ['$q', '$timeout', '$http', '$rootScope', 'UrlHelper', function ($q, $timeout, $http, $rootScope, UrlHelper) {
-
-                  console.log('in resolved_events');
-
-                  var deferred = $q.defer();
-
-                  var events = [];
-
-                  var url = UrlHelper.prepareApiUrl("webapiEvents");
-
-
-                  $http.get(url)
-                      .success(function (data, status, headers, config) {
-                          console.log(data);
-                          for (var i = 0; i < data.length; i++) {
-
-                              events.push({
-                                  id: data[i].id,
-                                  bride: data[i].Bride,
-                                  groom: data[i].Groom,
-                                  thelocation: data[i].WeddingLocation,
-                                  thename: data[i].CeremonyName,
-                                  thetime: data[i].WeddingTime,
-                                  theurl: data[i].theurl
-                              });
-
-                              if (i == data.length - 1) {
-                                  deferred.resolve(events);
-                              }
-                          }
-
-                      })
-                      .error(function (data, status, headers, config) { console.log("apiImage: ", data); });
-
-                  return deferred.promise;
               }]
           }
       })
@@ -139,54 +106,95 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
                           controller: 'ManageEventListCtrl'
                       }
                   }
+                  //,
+                  //resolve: {
+                  //    resolved_events: ['$q', '$timeout', '$http', '$rootScope', 'UrlHelper', function ($q, $timeout, $http, $rootScope, UrlHelper) {
+
+                  //        console.log('in resolved_events');
+
+                  //        var deferred = $q.defer();
+
+                  //        var events = [];
+
+                  //        var url = UrlHelper.prepareApiUrl("webapiEvents");
+
+
+                  //        $http.get(url)
+                  //            .success(function (data, status, headers, config) {
+                  //                console.log(data);
+                  //                for (var i = 0; i < data.length; i++) {
+
+                  //                    events.push({
+                  //                        id: data[i].id,
+                  //                        bride: data[i].Bride,
+                  //                        groom: data[i].Groom,
+                  //                        thelocation: data[i].WeddingLocation,
+                  //                        thename: data[i].CeremonyName,
+                  //                        thetime: data[i].WeddingTime,
+                  //                        theurl: data[i].theurl
+                  //                    });
+
+                  //                    if (i == data.length - 1) {
+                  //                        deferred.resolve(events);
+                  //                    }
+                  //                }
+
+                  //            })
+                  //            .error(function (data, status, headers, config) { console.log("apiImage: ", data); });
+
+                  //        return deferred.promise;
+                  //    }]
+                  //}
               })
               .state('manage.slide_list', {
-                  url: "/slide_list",
+                  url: "/{event_url}/slides",
                   views: {
                       'menuContent': {
                           templateUrl: "manage_slide_list.html",
                           controller: 'ManageSlideListCtrl'
                       }
-                  },
-                  resolve: {
-                      resolved_slides: ['$q', '$timeout', '$http', '$rootScope', 'UrlHelper', function ($q, $timeout, $http, $rootScope, UrlHelper) {
-
-                          console.log('in resolved_slides');
-
-                          var deferred = $q.defer();
-                          var slides = [];
-                          var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2018");
-                          var thumbnail_url = UrlHelper.prepareDataUrl("");
-
-                          $http.get(url)
-                          .success(function (data, status, headers, config) {
-                              //console.log(data);
-                              for (var i = 0; i < data.length; i++) {
-
-                                  slides.push({
-                                      slide_id: i + 1,
-                                      image_id: data[i].id,
-                                      image: thumbnail_url + data[i].filePath,
-                                      name: data[i].name,
-                                      message: data[i].leaveMessage,
-                                      ispublish: data[i].isPublish == 0 ? false : true,
-                                      checked: true
-                                  });
-
-                                  if (i == data.length - 1) {
-                                      deferred.resolve(slides);
-                                  }
-                              }
-
-                          })
-                          .error(function (data, status, headers, config) { console.log("apiImage: ", data); });
-
-                          return deferred.promise;
-                      }]
                   }
+                  //,
+                  //resolve: {
+                  //    resolved_slides: ['$q', '$timeout', '$http', '$rootScope', 'UrlHelper', function ($q, $timeout, $http, $rootScope, UrlHelper) {
+
+                  //        console.log('in resolved_slides');
+
+                  //        var deferred = $q.defer();
+                  //        var slides = [];
+                  //        //var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2018");
+                  //        var url = UrlHelper.prepareApiUrl("webapiThumbnailImages/2016"); //localhost test
+                  //        var thumbnail_url = UrlHelper.prepareDataUrl("");
+
+                  //        $http.get(url)
+                  //        .success(function (data, status, headers, config) {
+                  //            //console.log(data);
+                  //            for (var i = 0; i < data.length; i++) {
+
+                  //                slides.push({
+                  //                    slide_id: i + 1,
+                  //                    image_id: data[i].id,
+                  //                    image: thumbnail_url + data[i].filePath,
+                  //                    name: data[i].name,
+                  //                    message: data[i].leaveMessage,
+                  //                    ispublish: data[i].isPublish == 0 ? false : true,
+                  //                    checked: true
+                  //                });
+
+                  //                if (i == data.length - 1) {
+                  //                    deferred.resolve(slides);
+                  //                }
+                  //            }
+
+                  //        })
+                  //        .error(function (data, status, headers, config) { console.log("apiImage: ", data); });
+
+                  //        return deferred.promise;
+                  //    }]
+                  //}
               })
               .state('manage.slide_detail', {
-                  url: "/slide_list/{id}",
+                  url: "/slide/{id}",
                   views: {
                       'menuContent': {
                           templateUrl: "manage_slide_detail.html",

@@ -52,7 +52,7 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoadin
         if(nextState !== null && typeof nextState.name === 'string' && nextState.name !== '') {
             $state.go(nextState.name, nextState.params);
         } else {
-            $state.go('manage.slide_list');      // sucessful login will go to this state
+            $state.go('manage.event_list');      // sucessful login will go to this state
         }
     }
 
@@ -60,6 +60,7 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoadin
         if (typeof error === 'string' && $scope.errors.indexOf(error) === -1) {
             $scope.errors.push(error);
         }
+        $ionicLoading.hide();
         enableLoginButton();
     }
 

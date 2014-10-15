@@ -24,7 +24,7 @@
     <script src="lib/signalr/jquery.signalR-2.1.1.min.js"></script>
     <script src="lib/ionic/js/angular/angular-resource.js"></script>
     <script src="lib/angularlib/elastic.js"></script>
-    <script src="lib/jic/JIC.js"></script>
+    <!--<script src="lib/jic/JIC.js"></script>-->
 
     <!-- app js -->
     <script src="js/app.js"></script>
@@ -39,12 +39,13 @@
     <script src="js/controllers/general/eventlist.js"></script>
     <script src="js/controllers/general/formupload.js"></script>
     <script src="js/controllers/manage/sidemenu.js"></script>
+    <script src="js/controllers/manage/eventlist.js"></script>
     <script src="js/controllers/manage/slidelist.js"></script>
     <script src="js/controllers/manage/slidedetail.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script src="http://192.168.1.227:8080/target/target-script-min.js#anonymous"></script>
+    <script src="http://192.168.1.101:8080/target/target-script-min.js#anonymous"></script>
 
 </head>
 <body ng-app="app">
@@ -159,16 +160,16 @@
                     </h3>
                 </div>
 
-                <div style="position:absolute; top: 40%; left: 0px; right: 0px; bottom: auto;" ng-show="vm.uploading">
+                <!--<div style="position:absolute; top: 40%; left: 0px; right: 0px; bottom: auto;" ng-show="vm.uploading">
                     <div class="bar bar-header bar-light"></div>
                     <div class="bar bar-header bar-calm" role="progressbar" ng-style="{ 'width': vm.progress + '%' }" style="padding:0;"></div>
                     <div class="bar bar-header bar-light" style="background-color:rgba(255, 255, 255,0);">
                         <h2 style="margin: 0 auto; color: white;">{{vm.progress}}%</h2>
                     </div>
-                </div>
+                </div>-->
 
                 <!--停止content被滑動-->
-                <form method="post" enctype="multipart/form-data" class="camera_form">
+                <!--<form method="post" enctype="multipart/form-data" class="camera_form">
 
                     <div style="position:absolute; top: 70px; bottom: 75px; width: 100%; margin: auto; padding: 10px; text-align:center;">
                         <img src="" id="photoHolder" class="photoStyle" />
@@ -191,7 +192,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form>-->
             </ion-content>
         </ion-view>
     </script>
@@ -218,11 +219,11 @@
                 </header>
                 <ion-content class="has-header">
                     <ion-list>
-                        <ion-item nav-clear menu-close href="#/app/angular_camera">
+                        <!--<ion-item nav-clear menu-close href="#/app/angular_camera">
                             Camera
-                        </ion-item>
-                        <ion-item nav-clear menu-close href="#/manage/slide_list">
-                            Slide list
+                        </ion-item>-->
+                        <ion-item nav-clear menu-close href="#/manage/event_list">
+                            Event list
                         </ion-item>
                         <ion-item nav-clear menu-close ng-click="logout()">
                             Log out
@@ -242,7 +243,7 @@
                 <div class="list">
 
                     <a ng-repeat="event in events"
-                       href="#"
+                       href="#/manage/{{event.theurl}}/slides"
                        class="item">
                         <h2>{{ event.theurl }}</h2>
                     </a>
@@ -271,6 +272,10 @@
                                refreshing-icon="ion-loading-c">
 
                 </ion-refresher>
+                <div class="button-bar">
+                    <a class="button" ng-click="updateFilter(1)" ng-class="{'active' : showOption == 1}">All</a>
+                    <a class="button" ng-click="updateFilter(2)" ng-class="{'active' : showOption == 2}">Not Publish</a>
+                </div> 
                 <div class="list">
                     <!--<div class="item slide_thumbnail"
                          collection-repeat="slide in slides | orderBy: 'slide_id':true" 
@@ -278,7 +283,11 @@
                          collection-item-height="getItemHeight(slide)"
                          ng-style="{height: getItemHeight(slide)}">-->
 
-                    <div ng-repeat="slide in slides | orderBy: 'slide_id':true track by $index"
+                    <div ng-repeat="slide in slides |
+                                    orderBy: 'slide_id':true |
+                                    filter: filterOption |
+                                    limitTo: imageShown
+                                    track by $index"
                          class="item slide_thumbnail">
 
                         <img ng-src="{{ slide.image }}" class="thumbnail_image">
@@ -292,7 +301,7 @@
                         </div>
                         <div style="float: right;">
                             <div>
-                                <a href="#/manage/slide_list/{{slide.slide_id}}" class="button button-dark" style="border-radius: 10px;">
+                                <a href="#/manage/slide/{{slide.slide_id}}" class="button button-dark" style="border-radius: 10px;">
                                     <i class="icon ion-chatbubble-working"></i>
                                 </a>
                             </div>
@@ -307,6 +316,10 @@
                         </div>
                     </div>
                 </div>
+                <ion-infinite-scroll ng-if="moreDataCanBeLoaded()"
+                                     on-infinite="loadMore()"
+                                     distance="10%">
+                </ion-infinite-scroll>
             </ion-content>
         </ion-view>
     </script>
