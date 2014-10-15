@@ -64,6 +64,10 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoadin
         enableLoginButton();
     }
 
+    if (User.isAuthenticated()) {
+        $state.go('manage.event_list');
+    }
+
     var login = function () {
         console.log($scope.vm.username);
         console.log($scope.vm.password);
