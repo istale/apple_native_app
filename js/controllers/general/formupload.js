@@ -154,6 +154,12 @@ app.controller('GeneralFormUploadCtrl', ['$scope', '$ionicLoading', '$ionicScrol
         // Execute action
     });
 
+    console.log('in form upload');
+    console.log(User.getUserData());
+    if (User.getUserData().isAuthenticated == true) {
+
+        $state.go('manage.event_list');
+    }
 
     $ionicLoading.hide();
 }]);
