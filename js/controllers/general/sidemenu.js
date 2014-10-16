@@ -64,7 +64,10 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoadin
         enableLoginButton();
     }
 
+
+    console.log( User.getUserData() );
     if ( User.getUserData().isAuthenticated == true ) {
+
         $state.go('manage.event_list');
     }
 
