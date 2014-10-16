@@ -33,10 +33,10 @@ app.service('User', ['$http', '$window', 'UrlHelper', function ($http, $window, 
       error: ''
     };
 
-    function isAuthenticationExpired(expirationDate) {
+    function isAuthenticationExpired(p_expirationDate) {
       var now = new Date();
-      expirationDate = new Date(expirationDate);
-      if (expirationDate - now > 0) {
+      var expirationDate = new Date(p_expirationDate);
+      if (expirationDate.getTime() > now.getTime()) {
         return false;
       } else {
         return true;
@@ -53,13 +53,14 @@ app.service('User', ['$http', '$window', 'UrlHelper', function ($http, $window, 
     }
 
     function retrieveSavedData() {
-        var savedData = $window.localStorage.getItem('auth_data');
+        var _savedData = $window.localStorage["auth_data"];
+        var savedData = JSON.parse(_savedData);
       if (typeof savedData === 'undefined') {
         throw new AuthenticationRetrievalException('No authentication data exists');
-      } else if (isAuthenticationExpired(savedData.expirationDate)) {
+      } else if (isAuthenticationExpired( (savedData.expirationDate).split("T")[0] )) {
         throw new AuthenticationExpiredException('Authentication token has already expired');
       } else {
-        userData = JSON.parse(savedData);
+        userData = savedData;
         setHttpAuthHeader();
       }
     }
