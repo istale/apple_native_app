@@ -17,7 +17,7 @@
     }
 }]);
 
-app.controller('GeneralFormUploadCtrl', ['$scope', '$ionicLoading', '$ionicScrollDelegate', '$http', '$ionicModal', function ($scope, $ionicLoading, $ionicScrollDelegate, $http, $ionicModal) {
+app.controller('GeneralFormUploadCtrl', ['$scope', '$ionicLoading', '$ionicScrollDelegate', '$http', '$ionicModal', 'User', function ($scope, $ionicLoading, $ionicScrollDelegate, $http, $ionicModal, User) {
     
     $scope.myIonicLoading = $ionicLoading;
 
@@ -154,6 +154,7 @@ app.controller('GeneralFormUploadCtrl', ['$scope', '$ionicLoading', '$ionicScrol
         // Execute action
     });
 
+    debugger;
     console.log('in form upload');
     console.log(User.getUserData());
     if (User.getUserData().isAuthenticated == true) {

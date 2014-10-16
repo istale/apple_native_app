@@ -65,11 +65,11 @@ app.controller('GeneralSideMenuCtrl', ['$scope', '$state', 'User', '$ionicLoadin
     }
 
 
-    console.log( User.getUserData() );
-    if ( User.getUserData().isAuthenticated == true ) {
+    //console.log( User.getUserData() );
+    //if ( User.getUserData().isAuthenticated == true ) {
 
-        $state.go('manage.event_list');
-    }
+    //    $state.go('manage.event_list');
+    //}
 
     var login = function () {
         console.log($scope.vm.username);
